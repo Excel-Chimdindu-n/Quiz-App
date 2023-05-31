@@ -1,0 +1,154 @@
+<style>
+    .side-nav a {
+        display: flex;
+        color: #710988;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+    }
+
+    .side-nav {
+        position: fixed;
+        width: 140px;
+        /* border-right: 10px solid black; */
+        box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
+        height: 100%;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .side-nav a i {
+        color: #3B0A6B;
+        font-size: 20px;
+        width: 100%;
+        height: 70px;
+        gap: 10px;
+        transition: all .4s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: sans-serif;
+        font-style: normal;
+        font-weight: 800;
+    }
+
+    .side-nav ul {
+        width: 100%;
+    }
+
+    .side-nav ul li {
+        width: 100%;
+    }
+
+    .side-nav a i span {
+        font-size: 14px;
+    }
+
+    .side-nav a i.active {
+        color: #fff;
+        background-color: #3B0A6B;
+    }
+
+    .side-nav a i:hover {
+        color: #fff;
+        background-color: #3B0A6B;
+    }
+
+    .side-nav p {
+        margin-bottom: 27px;
+        font-size: 21px;
+        font-family: bree serif;
+    }
+
+    .side-nav li {
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 890px) {
+        .side-nav {
+            display: none;
+        }
+    }
+</style>
+
+<div class="navbar-container">
+    <div class="side-nav">
+        <ul style="list-style-type: none; padding: 0;">
+            {% if user.is_authenticated %}
+            {% url 'home_page' as home_page %}
+            <li>
+                <a href="{{ home_page }}" title="Home">
+                    <i class="{% if home_page == request.path %} active {% endif %}"> <span>Dashboard</span></i>
+                </a>
+            </li>
+
+            {% url 'quiz:category' as category %}
+            <li>
+                <a href="{{category}}" title="Quiz">
+                    <i class="{% if category == request.path %} active {% endif %}" aria-hidden="true"> <span>Quiz</span></i>
+                </a>
+            </li>
+
+            {% url 'quiz:messages' as messages %}
+            <li>
+                <a href="{{ messages }}" title="Messages">
+                    <i class="{% if messages == request.path %} active {% endif %}" aria-hidden="true"> <span>Messages</span></i>
+                </a>
+            </li>
+
+            {% url 'quiz:announcements' as announcements %}
+            <li>
+                <a href="{{ announcements }}" title="Announcements">
+                    <i class="{% if announcements == request.path %} active {% endif %}" aria-hidden="true"> <span>Announcement</span></i>
+                </a>
+            </li>
+
+            {% url 'quiz:profile' as profile %}
+            <li>
+                <a href="{{ profile }}" title="Profile">
+                    <i class="{% if profile == request.path %} active {% endif %}" aria-hidden="true"> <span>profile</span></i>
+                </a>
+            </li>
+
+            {% url 'account_logout' as account_logout %}
+            <li>
+                <a href="{{ account_logout }}" title="Profile">
+                    <i aria-hidden="true"> <span>Logout</span></i>
+                </a>
+            </li>
+
+            {% else %}
+            {% url 'home_page' as home_page %}
+            <li>
+                <a href="{{ home_page }}" title="Home">
+                    <i class="{% if home_page == request.path %} active {% endif %}"> <span>Home</span></i>
+                </a>
+            </li>
+
+            {% url 'about_page' as about_page %}
+            <li>
+                <a href="{{about_page}}" title="About">
+                    <i class="{% if about_page == request.path %} active {% endif %}" aria-hidden="true"> <span>About</span></i>
+                </a>
+            </li>
+
+            <li>
+                <a href="" title="FAQs">
+                    <i class="" aria-hidden="true"> <span>FAQs</span></i>
+                </a>
+            </li>
+
+            {% url 'contact_page' as contact_page %}
+            <li>
+                <a href="{{ contact_page }}" title="Contact">
+                    <i class="{% if contact_page == request.path %} active {% endif %}" aria-hidden="true"> <span>Contact</span></i>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

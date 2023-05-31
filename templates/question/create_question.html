@@ -1,0 +1,140 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Create Quiz{% endblock title %}
+{% block style %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .createQuizSection {
+        display: flex;
+    }
+
+    .img-sec {
+        width: 50%;
+        height: 100vh;
+        background: linear-gradient(to bottom, #4e54c8, #8f94fb);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: fixed;
+    }
+
+    .img-sec h3 {
+        font-size: 32px;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        margin-top: 20px;
+    }
+
+    .form-sec {
+        width: 50%;
+        padding: 20px;
+        display: flex;
+        margin-left: auto;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .form-sec h2 {
+        font-size: 40px;
+        letter-spacing: 2px;
+        font-family: 'Freestyle Script', cursive;
+        margin-bottom: 30px;
+    }
+
+    form {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    form textarea {
+        width: 100%;
+        border: none;
+        outline: none;
+        font-family: sans-serif;
+        letter-spacing: 1px;
+        height: 50px;
+        background-color: whitesmoke;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    form label {
+        font-family: 'Calisto MT', serif;
+        font-weight: 800;
+    }
+
+    form select {
+        width: 100%;
+        height: 30px;
+        outline: none;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+
+    form table {
+        width: 100%;
+    }
+
+    form table tr td {
+        padding-bottom: 10px;
+    }
+
+    button {
+        width: 100%;
+        height: 40px;
+        border: none;
+        font-size: 18px;
+        background: lime;
+        text-transform: uppercase;
+        font-family: 'Freestyle Script', cursive;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+</style>
+{% endblock style %}
+
+{% block content %}
+<section class="createQuizSection">
+    <div class="img-sec">
+        <h2>Create a Quiz</h2>
+        <h3>How to create a question:</h3>
+        <ul>
+            <li>Enter the category of the question.</li>
+            <li>Provide the question text.</li>
+            <li>Add choices for the question.</li>
+            <li>Specify the correct answer.</li>
+            <li>Click "Create Question" to save the question.</li>
+            <li>Click "Create Category" to save a new category.</li>
+        </ul>
+    </div>
+    <div class="form-sec">
+        <h2>Create Question</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ category_form.as_p }}
+
+            <input type="submit" name="create_category" value="Create Category">
+        </form>
+
+        <form method="POST" enctype="multipart/form-data">
+            {{ question_form.as_p }}
+
+            <h3>Choices</h3>
+            {{ choice_formset.management_form }}
+            {% for form in choice_formset %}
+            {{ form.as_table }}
+            {% endfor %}
+
+            <input type="submit" name="create_question" value="Create Question">
+
+        </form>
+    </div>
+</section>
+{% endblock content %}

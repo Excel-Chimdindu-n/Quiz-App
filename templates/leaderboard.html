@@ -1,0 +1,62 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Leaderboard{% endblock title %}
+
+{% block style %}
+<style>
+    .container {
+        width: 30%;
+        margin: 5rem auto;
+    }
+
+    h1 {
+        text-align: center;
+        border-bottom: 3px solid #3B0A6B;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    td {
+        padding: 10px;
+        border-bottom: 1px solid #3B0A6B;
+    }
+
+    th {
+        font-size: 20px;
+        font-weight: 800;
+        background-color: #3B0A6B;
+        color: white;
+        padding: 20px;
+        font-family: fira sans;
+    }
+</style>
+{% endblock style %}
+
+
+{% block content %}
+<div class="container">
+    <h1><span><i class="bi bi-trophy" aria-hidden="true"></i> TOP {{ total_count }} PLAYERS <i class="bi bi-trophy" aria-hidden="true"></i></span></h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Username</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quiz_profile in top_quiz_profiles %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ quiz_profile.user.username }}</td>
+                <td>{{ quiz_profile.total_score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
